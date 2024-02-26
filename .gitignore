@@ -4,6 +4,7 @@
 !.bashrc
 !.conkyrc
 !.gitignore
+!README.md
 
 !.config
 .config/*
