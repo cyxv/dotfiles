@@ -2,13 +2,13 @@
 
 !.bash_profile
 !.bashrc
-!.conkyrc
 !.gitignore
 !README.md
 
 !.config
 .config/*
 !.config/alacritty
+!.config/conky
 !.config/nvim
 !.config/picom
 !.config/qtile
