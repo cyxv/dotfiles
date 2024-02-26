@@ -1,0 +1,16 @@
+/*
+
+!.bash_profile
+!.bashrc
+!.conkyrc
+!.gitignore
+
+!.config
+.config/*
+!.config/alacritty
+!.config/nvim
+!.config/picom
+!.config/qtile
+.config/qtile/__pycache__
+!.config/rofi
+!.config/yadm
