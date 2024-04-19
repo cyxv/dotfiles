@@ -4,13 +4,14 @@ import subprocess
 from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
+from libqtile.scripts.main import VERSION
 
 cfg_folder = f"/home/{os.getlogin()}/.config/qtile"
 scripts = f"{cfg_folder}/scripts"
 
 mod = "mod4"
-terminal = "alacritty"
-browser = "firefox"
+terminal = "st zsh"
+browser = "brave"
 file_manager = "thunar"
 
 keys = [
@@ -57,7 +58,8 @@ keys = [
     KeyChord([mod], "o", [
         Key([mod], "b", lazy.spawn(browser), desc="Launch the web browser"),
         Key([mod], "e", lazy.spawn(file_manager), desc="Launch the file manager"),
-        Key([mod], "s", lazy.spawn("steam"), desc="Launch Steam")
+        Key([mod], "s", lazy.spawn("steam"), desc="Launch Steam"),
+        Key([mod], "d", lazy.spawn("discord"), desc="Launch Discord"),
     ]),
 
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Open the flameshot menu"),
@@ -66,15 +68,15 @@ keys = [
 ]
 
 # uncomment this block if using wayland
-#for vt in range(1, 8):
-#    keys.append(
-#        Key(
-#            ["control", "mod1"],
-#            f"f{vt}",
-#            lazy.core.change_vt(vt).when(func=lambda: qtile.core.name == "wayland"),
-#            desc=f"Switch to VT{vt}",
-#        )
-#    )
+for vt in range(1, 8):
+    keys.append(
+        Key(
+            ["control", "mod1"],
+            f"f{vt}",
+            lazy.core.change_vt(vt).when(func=lambda: qtile.core.name == "wayland"),
+            desc=f"Switch to VT{vt}",
+        )
+    )
 
 
 groups = [Group(i) for i in "123456789"]
@@ -109,6 +111,10 @@ layouts = [
         border_width=2,
         margin=8,
         margin_on_single=False
+    ),
+    layout.Columns(
+        border_focus_stack=["#d75f5f", "#8f3d3d"],
+        border_width=0,
     ),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
@@ -197,8 +203,12 @@ auto_minimize = False
 # When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
 
-wmname = "LG3D"
+#wmname = "LG3D"
+wmname = f"qtile {VERSION}"
 
 @hook.subscribe.startup_once
 def autostart():
-    subprocess.run([f"{scripts}/autostart.sh"])
+    if qtile.core.name == "x11":
+        subprocess.run([f"{scripts}/autostart.sh"])
+    elif qtile.core.name == "wayland":
+        subprocess.run([f"{scripts}/autostart_wayland.sh"])

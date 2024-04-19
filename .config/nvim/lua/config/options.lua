@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.opt.nu = true
 vim.opt.rnu = true
 
@@ -14,4 +12,4 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.opt.swapfile = false
 
-vim.opt.scrolloff = 4
+vim.opt.scrolloff = 8

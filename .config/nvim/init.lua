@@ -1,3 +1,4 @@
-require("config")
+vim.loader.enable()
+vim.g.mapleader = " "
 
-vim.cmd("command! Ex NvimTreeToggle")
+require("config")
